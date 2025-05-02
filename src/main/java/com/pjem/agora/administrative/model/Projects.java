@@ -1,9 +1,11 @@
-package com.pjem.agora.model;
+package com.pjem.agora.administrative.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +20,12 @@ public class Projects {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String name;
+    @NonNull
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
 
     /////////////// RELACIONAMENTOS ///////////////
