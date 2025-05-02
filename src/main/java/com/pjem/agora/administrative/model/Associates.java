@@ -1,16 +1,15 @@
-package com.pjem.agora.model;
+package com.pjem.agora.administrative.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_Associates")
@@ -31,6 +30,7 @@ public class Associates {
     private String cep;
     private String city;
     private String state;
+
 
     /////////////// RELACIONAMENTOS ///////////////
 

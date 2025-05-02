@@ -1,6 +1,6 @@
-package com.pjem.agora.model;
+package com.pjem.agora.administrative.model;
 
-import com.pjem.agora.model.enums.Profile;
+import com.pjem.agora.administrative.model.enums.Profile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
