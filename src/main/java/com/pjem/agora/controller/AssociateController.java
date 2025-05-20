@@ -1,0 +1,63 @@
+package com.pjem.agora.controller;
+
+import com.pjem.agora.exception.MemberAlreadyRegisteredException;
+import com.pjem.agora.model.Associates;
+import com.pjem.agora.record.AssociatesReadRecord;
+import com.pjem.agora.record.AssociatesRegistrationRecord;
+import com.pjem.agora.service.AssociateService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@AllArgsConstructor
+@RequestMapping("/api/v1/associate")
+public class AssociateController {
+
+    private final AssociateService associateService;
+
+    /***
+     *
+     * @param newAssociate
+     * @return
+     *
+     * Aprendizadp:
+     * Try-catch
+     * Anotações
+     */
+
+    @PostMapping
+    public ResponseEntity<Object> registerAssociate(@RequestBody AssociatesRegistrationRecord newAssociate) {
+        try {
+            Associates saved = associateService.registrerAssociate(newAssociate);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (MemberAlreadyRegisteredException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        }
+    }
+
+    @GetMapping
+    public List<AssociatesReadRecord> getAllAssocaites(){
+        return associateService.getAllAssocaites();
+    }
+
+    @GetMapping("/associado/{name}")
+    public AssociatesReadRecord getAssociate(@PathVariable String name){
+        return associateService.getAssociate(name);
+    }
+
+    @PatchMapping("/{name}")
+    public void updateAssociate(@RequestBody AssociatesRegistrationRecord associateUpdateDto,
+                                                  @PathVariable String name){
+        associateService.updateAssociate(associateUpdateDto, name);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteAssociate(@PathVariable String name){
+        associateService.deleteAssociate(name);
+    }
+
+}
