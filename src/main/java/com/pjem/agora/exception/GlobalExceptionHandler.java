@@ -16,19 +16,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Member Alread Registered
-    @ExceptionHandler(MemberAlreadyRegisteredException.class)
-    public ResponseEntity<ErrorResponse> handleMemberAlreadyRegistered(MemberAlreadyRegisteredException ex) {
+
+    @ExceptionHandler(ResourceAlreadyRegisteredException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNoRegisteredException(ResourceAlreadyRegisteredException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(new ErrorResponse(409, ex.getMessage()));
     }
 
-    // No Registered Members
-    @ExceptionHandler(noRegisteredMembersException.class)
-    public ResponseEntity<ErrorResponse> handlenoRegisteredMembers(noRegisteredMembersException ex) {
+
+    @ExceptionHandler(NoRegisteredMembersException.class)
+    public ResponseEntity<ErrorResponse> handleNoRegisteredMembersException(ResourceNoRegisteredException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(404, ex.getMessage()));
     }
+
 
 
 
@@ -38,6 +39,5 @@ public class GlobalExceptionHandler {
         ex.printStackTrace(); // ou use um logger
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse(500, "Erro interno no servidor. Por favor, tente novamente mais tarde."));
-
-}
+    }
 }

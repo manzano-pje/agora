@@ -1,10 +1,8 @@
 package com.pjem.agora.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
@@ -12,7 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_Projects")
@@ -20,9 +19,9 @@ public class Projects {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
+    @NotNull
     private String name;
-    @NonNull
+    @NotNull
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -32,5 +31,4 @@ public class Projects {
 
     @OneToMany(mappedBy = "projects", cascade = CascadeType.ALL)
     private List<AssociatedProjects> associates = new ArrayList<>();
-
 }

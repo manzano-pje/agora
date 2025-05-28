@@ -40,5 +40,10 @@ public class Associates {
     private Users users;
 
     @OneToMany(mappedBy = "associates", cascade = CascadeType.ALL)
-    private List<com.pjem.agora.model.AssociatedProjects> projects = new ArrayList<>();
+    private List<AssociatedProjects> projects = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "direction_id_direction")
+    private Direction direction;
+
 }

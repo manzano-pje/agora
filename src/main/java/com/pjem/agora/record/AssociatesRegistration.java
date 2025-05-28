@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public record AssociatesRegistrationRecord(
+public record AssociatesRegistration(
         @NonNull String name,
         @NonNull @Min(value = 8, message = "O RG precisa ter no mínimo 8 dígitos") String rg,
         @CPF @NonNull String cpf,
@@ -20,7 +20,7 @@ public record AssociatesRegistrationRecord(
         @NonNull  String phone,
         @Email @NonNull String email,
         @NonNull String adress,
-        @NonNull int number,
+        int number,
         String comlement,
         @NonNull @Pattern(regexp = "^\\d{5} - \\d{3}") String cep,
         @NonNull String city,

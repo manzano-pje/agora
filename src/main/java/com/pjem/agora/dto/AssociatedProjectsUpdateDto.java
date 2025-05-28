@@ -1,6 +1,6 @@
 package com.pjem.agora.dto;
 
-import com.pjem.agora.model.enums.Role;
+import com.pjem.agora.model.enums.ProjectEnum;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +24,5 @@ public class AssociatedProjectsUpdateDto {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate entryDate;
     @Enumerated
-    private Role role;
+    private ProjectEnum projectEnum;
 }

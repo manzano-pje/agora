@@ -1,10 +1,10 @@
 package com.pjem.agora.service;
 
-import com.pjem.agora.exception.MemberAlreadyRegisteredException;
-import com.pjem.agora.exception.noRegisteredMembersException;
+import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
+import com.pjem.agora.exception.ResourceNoRegisteredException;
 import com.pjem.agora.model.Associates;
-import com.pjem.agora.record.AssociatesReadRecord;
-import com.pjem.agora.record.AssociatesRegistrationRecord;
+import com.pjem.agora.record.AssociatesRead;
+import com.pjem.agora.record.AssociatesRegistration;
 import com.pjem.agora.repository.AssociateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -29,10 +29,10 @@ public class AssociateService {
 
     private final AssociateRepository associateRepository;
 
-    public Associates registrerAssociate(AssociatesRegistrationRecord newAssociate) {
+    public Associates registrerAssociate(AssociatesRegistration newAssociate) {
         Optional<Associates> optionalAssociates = associateRepository.findByNameContainingIgnoreCase(newAssociate.name());
         if (optionalAssociates.isPresent()) {
-            throw new MemberAlreadyRegisteredException();
+            throw new ResourceAlreadyRegisteredException("Associado Jjá cadastrado.");
         } else {
             Associates associates = new Associates();
             BeanUtils.copyProperties(newAssociate, associates);
@@ -42,26 +42,25 @@ public class AssociateService {
         }
     }
 
-    public List<AssociatesReadRecord> getAllAssocaites(){
+    public List<AssociatesRead> getAllAssocaites(){
         List<Associates> listAssociates = associateRepository.findAll();
         if(listAssociates.isEmpty()){
-            throw new noRegisteredMembersException();
+            throw new ResourceNoRegisteredException("Não existem associados cadastrados.");
         }
         return listAssociates.stream()
-                .map(AssociatesReadRecord:: new)
+                .map(AssociatesRead:: new)
                 .collect(Collectors.toList());
     }
 
-    public AssociatesReadRecord getAssociate(String name){
+    public AssociatesRead getAssociate(String name){
       return associateRepository.findByNameContainingIgnoreCase(name)
-              .map(AssociatesReadRecord::new)
-              .orElseThrow(noRegisteredMembersException::new);
-    }
+              .map(AssociatesRead::new)
+              .orElseThrow(() -> new ResourceNoRegisteredException("Associado não cadastrado"));    }
 
-    public ResponseEntity<Object> updateAssociate(AssociatesRegistrationRecord associateData, String name){
+    public ResponseEntity<Object> updateAssociate(AssociatesRegistration associateData, String name){
         Optional<Associates> associateUpdate = associateRepository.findByNameContainingIgnoreCase(name);
         if(associateUpdate.isEmpty()){
-            throw new noRegisteredMembersException();
+            throw new ResourceNoRegisteredException("Associado não cadastrado");
         }else{
             Associates associates = new Associates();
             BeanUtils.copyProperties(associateData, associates);
@@ -74,7 +73,7 @@ public class AssociateService {
     public ResponseEntity<Object> deleteAssociate(String name){
         Optional<Associates> associateDelete = associateRepository.findByNameContainingIgnoreCase(name);
         if(associateDelete.isEmpty()){
-            throw new noRegisteredMembersException();
+            throw new ResourceNoRegisteredException("Associado não cadastrado");
         }else{
             associateRepository.deleteById(associateDelete.get().getId());
             return ResponseEntity.status(HttpStatus.OK).body("Associado excluído.");

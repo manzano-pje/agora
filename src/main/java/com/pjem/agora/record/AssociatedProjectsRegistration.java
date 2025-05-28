@@ -2,7 +2,7 @@ package com.pjem.agora.administrative.record;
 
 import java.time.LocalDate;
 
-public record AssociatedProjectsRegistrationRecord(
+public record AssociatedProjectsRegistration(
         Long associateId,
         Long projectId,
         LocalDate entryDate,

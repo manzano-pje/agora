@@ -1,9 +1,8 @@
 package com.pjem.agora.controller;
 
-import com.pjem.agora.exception.MemberAlreadyRegisteredException;
 import com.pjem.agora.model.Associates;
-import com.pjem.agora.record.AssociatesReadRecord;
-import com.pjem.agora.record.AssociatesRegistrationRecord;
+import com.pjem.agora.record.AssociatesRead;
+import com.pjem.agora.record.AssociatesRegistration;
 import com.pjem.agora.service.AssociateService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class AssociateController {
      */
 
     @PostMapping
-    public ResponseEntity<Object> registerAssociate(@RequestBody AssociatesRegistrationRecord newAssociate) {
+    public ResponseEntity<Object> registerAssociate(@RequestBody AssociatesRegistration newAssociate) {
         try {
             Associates saved = associateService.registrerAssociate(newAssociate);
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);
@@ -40,17 +39,17 @@ public class AssociateController {
     }
 
     @GetMapping
-    public List<AssociatesReadRecord> getAllAssocaites(){
+    public List<AssociatesRead> getAllAssocaites(){
         return associateService.getAllAssocaites();
     }
 
     @GetMapping("/associado/{name}")
-    public AssociatesReadRecord getAssociate(@PathVariable String name){
+    public AssociatesRead getAssociate(@PathVariable String name){
         return associateService.getAssociate(name);
     }
 
     @PatchMapping("/{name}")
-    public void updateAssociate(@RequestBody AssociatesRegistrationRecord associateUpdateDto,
+    public void updateAssociate(@RequestBody AssociatesRegistration associateUpdateDto,
                                                   @PathVariable String name){
         associateService.updateAssociate(associateUpdateDto, name);
     }
