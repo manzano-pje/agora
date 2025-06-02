@@ -1,5 +1,6 @@
 package com.pjem.agora.controller;
 
+import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
 import com.pjem.agora.model.Associates;
 import com.pjem.agora.record.AssociatesRead;
 import com.pjem.agora.record.AssociatesRegistration;
@@ -33,7 +34,7 @@ public class AssociateController {
         try {
             Associates saved = associateService.registrerAssociate(newAssociate);
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-        } catch (MemberAlreadyRegisteredException ex) {
+        } catch (ResourceAlreadyRegisteredException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
         }
     }

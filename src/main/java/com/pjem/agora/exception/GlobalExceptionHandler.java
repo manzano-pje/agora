@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(NoRegisteredMembersException.class)
-    public ResponseEntity<ErrorResponse> handleNoRegisteredMembersException(ResourceNoRegisteredException ex) {
+    @ExceptionHandler(ResourceNoRegisteredException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNoRegisteredException(ResourceNoRegisteredException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(404, ex.getMessage()));
     }

@@ -1,18 +1,12 @@
-package com.pjem.agora.util;
+package com.projeto.restaurante.configuration;
 
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Formata um texto capitalizando a primeira letra de cada palavra,
- * exceto as palavras de ligação, que ficam em minúsculas (a menos que
- * estejam no início do texto).
- */
 @Component
-public class FormatarTexto {
+public class TextConverter {
 
     // Lista de palavras que devem ficar em minúsculas, como "de", "da", etc.
     private static final Set<String> PALAVRAS_LIGACAO = new HashSet<>();
@@ -34,7 +28,7 @@ public class FormatarTexto {
         PALAVRAS_LIGACAO.add("a");
     }
 
-    public static String formatarString(String texto) {
+    public static String stringConverter(String texto) {
         if (texto == null || texto.isEmpty()) {
             return texto; // Retorna texto vazio ou nulo diretamente
         }
@@ -58,5 +52,6 @@ public class FormatarTexto {
 
         return resultado;
     }
+
 }
 

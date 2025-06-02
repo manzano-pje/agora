@@ -1,4 +1,4 @@
-package com.projeto.restaurante.configuration;
+package com.pjem.agora.util;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
