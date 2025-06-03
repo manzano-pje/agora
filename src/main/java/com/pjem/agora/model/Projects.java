@@ -1,0 +1,36 @@
+package com.pjem.agora.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "tb_Projects")
+public class Projects {
+
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotNull
+    private String name;
+    @NotNull
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate startDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate endDate;
+
+    /////////////// RELACIONAMENTOS ///////////////
+
+    @OneToMany(mappedBy = "projects", cascade = CascadeType.ALL)
+    private List<AssociatedProjects> associates = new ArrayList<>();
+}
