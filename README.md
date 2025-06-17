@@ -19,8 +19,8 @@ O objetivo do **Agora** é proporcionar uma plataforma digital organizada e aces
 
 | Módulo                        | Status       |
 |------------------------------|--------------|
-| 📇 Cadastro de Associados     | ☑️ Concluído |
-| 🗂️ Cadastro de Projetos       | ⬜ Em desenvolvimento |
+| 📇 Cadastro de Associados     | [x] Concluído |
+| 🗂️ Cadastro de Projetos       | [x] Em desenvolvimento |
 | 👥 Associados em Projetos     | ⬜ Em desenvolvimento |
 | 🧑‍💼 Cadastro de Diretoria     | ⬜ Em planejamento |
 | 💰 Módulo Financeiro          | ⬜ Em planejamento |
