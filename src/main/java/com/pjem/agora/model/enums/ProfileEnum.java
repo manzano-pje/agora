@@ -1,6 +1,6 @@
 package com.pjem.agora.model.enums;
 
-public enum Profile {
+public enum ProfileEnum {
     Administrador,
     Usuário
 }

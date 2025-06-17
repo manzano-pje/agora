@@ -1,5 +1,6 @@
 package com.pjem.agora.model;
 
+import com.pjem.agora.model.enums.DirectionEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,14 +22,14 @@ public class Direction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDirection;
-    private Long associateName;
+    private Long idAssociates;
     private LocalDate startDate;
     private LocalDate finalDate;
-    private Boolean isActive;
-    @Enumerated(EnumType.STRING)
-    private com.pjem.agora.model.enums.Direction direction;
 
-    @OneToMany (mappedBy = "direction", cascade = CascadeType.ALL)
-    private List<Associates> associates = new ArrayList<>();
+    @Column(name = "role", length = 20)
+    @Enumerated(EnumType.STRING)
+    private DirectionEnum role;
+    private boolean isActive;
+
 }
 

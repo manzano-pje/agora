@@ -1,6 +1,6 @@
 package com.pjem.agora.model;
 
-import com.pjem.agora.model.enums.Profile;
+import com.pjem.agora.model.enums.ProfileEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class Users {
     private String email;
     private String password;
     @Enumerated
-    private Profile profile;
+    private ProfileEnum profileEnum;
 
     /////////////// RELACIONAMENTOS ///////////////
 

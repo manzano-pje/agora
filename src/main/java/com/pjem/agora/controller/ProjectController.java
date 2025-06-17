@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/projects")
-@Table(name="tb_projects")
+@CrossOrigin(origins = "*") //
 public class ProjectController {
 
     private final ProjectService projectService;

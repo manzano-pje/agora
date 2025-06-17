@@ -34,10 +34,10 @@ public class GlobalExceptionHandler {
 
 
     // Handling unexpected errors - Internal Server Error (500)
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleInternalServerError(Exception ex) {
-        ex.printStackTrace(); // ou use um logger
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(500, "Erro interno no servidor. Por favor, tente novamente mais tarde."));
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> handleInternalServerError(Exception ex) {
+//        ex.printStackTrace(); // ou use um logger
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(new ErrorResponse(500, "Erro interno no servidor. Por favor, tente novamente mais tarde."));
+//    }
 }

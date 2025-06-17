@@ -12,7 +12,7 @@ public record ProjectRegistration(
         @NonNull String name,
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-        @NonNull @DateTimeFormat(pattern = "dd/MM/yyyy")
+        @NonNull
         @Schema(type = "string", pattern = "dd/MM/yyyy", example = "01/01/1900")
         LocalDate startDate
 ) {

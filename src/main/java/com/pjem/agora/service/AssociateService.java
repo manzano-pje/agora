@@ -32,12 +32,12 @@ public class AssociateService {
     public Associates registrerAssociate(AssociatesRegistration newAssociate) {
         Optional<Associates> optionalAssociates = associateRepository.findByNameContainingIgnoreCase(newAssociate.name());
         if (optionalAssociates.isPresent()) {
-            throw new ResourceAlreadyRegisteredException("Associado Jjá cadastrado.");
+            throw new ResourceAlreadyRegisteredException("Associado já cadastrado.");
         } else {
             Associates associates = new Associates();
             BeanUtils.copyProperties(newAssociate, associates);
+            associates.setIsActive(true);
             associateRepository.save(associates);
-//            System.out.println("Associado cadastrado com sucesso");
             return ResponseEntity.status(HttpStatus.CREATED).body(associates).getBody();
         }
     }
