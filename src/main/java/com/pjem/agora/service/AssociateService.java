@@ -30,7 +30,7 @@ public class AssociateService {
     private final AssociateRepository associateRepository;
 
     public Associates registrerAssociate(AssociatesRegistration newAssociate) {
-        Optional<Associates> optionalAssociates = associateRepository.findByNameContainingIgnoreCase(newAssociate.name());
+        Optional<Associates> optionalAssociates = associateRepository.findByCpf(newAssociate.cpf());
         if (optionalAssociates.isPresent()) {
             throw new ResourceAlreadyRegisteredException("Associado já cadastrado.");
         } else {

@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface AssociateRepository extends JpaRepository<Associates, Long> {
 
     Optional<Associates> findByNameContainingIgnoreCase(String name);
+    Optional<Associates> findByCpf(String cpf);
 
 }
