@@ -22,7 +22,10 @@ public class Direction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDirection;
-    private Long idAssociates;
+    @ManyToOne
+    @JoinColumn(name = "associates_id")
+    private Associates associates;
+
     private LocalDate startDate;
     private LocalDate finalDate;
 

@@ -42,8 +42,8 @@ public class Associates {
 
     @OneToMany(mappedBy = "associates", cascade = CascadeType.ALL)
     private List<AssociatedProjects> projects = new ArrayList<>();
-//
-//    @OneToMany (mappedBy = "associates", cascade = CascadeType.ALL)
-//    private List<Direction> directions = new ArrayList<>();
+
+    @OneToMany (mappedBy = "associates", cascade = CascadeType.ALL)
+    private List<Direction> directions = new ArrayList<>();
 
 }

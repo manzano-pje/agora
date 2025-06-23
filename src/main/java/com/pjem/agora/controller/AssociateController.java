@@ -36,7 +36,7 @@ public class AssociateController {
     public ResponseEntity<Object> registerAssociate(@RequestBody AssociatesRegistration newAssociate) {
         try {
             Associates saved = associateService.registrerAssociate(newAssociate);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+            return ResponseEntity.status(HttpStatus.CREATED).body("registro gravado com sucesso");
         } catch (ResourceAlreadyRegisteredException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
         }
