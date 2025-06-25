@@ -1,6 +1,7 @@
 package com.pjem.agora.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,13 +38,14 @@ public class Associates {
 
     /////////////// RELACIONAMENTOS ///////////////
 
-    @OneToOne
-    private Users users;
+//    @OneToOne
+//    private Users users;
 
     @OneToMany(mappedBy = "associates", cascade = CascadeType.ALL)
     private List<AssociatedProjects> projects = new ArrayList<>();
 
     @OneToMany (mappedBy = "associates", cascade = CascadeType.ALL)
-    private List<Direction> directions = new ArrayList<>();
+    @JsonIgnore
+    private List<Direction> directions;
 
 }

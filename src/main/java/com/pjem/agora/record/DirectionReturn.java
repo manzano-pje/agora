@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public record DirectionReturn(
         DirectionEnum role,
-        Associates nameDirector,
+        String nameDirector,
         LocalDate startDate,
         LocalDate finalDate,
         Boolean isActive

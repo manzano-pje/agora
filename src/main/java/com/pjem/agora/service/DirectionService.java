@@ -59,7 +59,7 @@ public class DirectionService {
     }
 
     public List<DirectionReturn> getAllDirection(){
-        List<Direction> directionList = directorRepository.findAll();
+        List<Direction> directionList = directorRepository.findAllWithAssociates();
         if (directionList.isEmpty()) {
             throw new ResourceNoRegisteredException("Não há membros cadastrados na diretoria");
         }else{
@@ -69,10 +69,11 @@ public class DirectionService {
                             .thenComparing(Direction::getRole))
                     .collect(Collectors.toList());
 
+
             return  directionList.stream()
                     .map(d -> new DirectionReturn(
                             d.getRole(),
-                            d.getAssociates(),
+                            d.getAssociates().getName(),
                             d.getStartDate(),
                             d.getFinalDate(),
                             d.isActive()

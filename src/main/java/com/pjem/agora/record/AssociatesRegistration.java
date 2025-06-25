@@ -23,8 +23,8 @@ public record AssociatesRegistration(
         @NotNull int number,
         String comlement,
         @Pattern(regexp = "^\\d{5} - \\d{3}") String cep,
-         String city,
-        String state
+        @NotNull String city,
+        @NotNull String state
 ){}
 
 
