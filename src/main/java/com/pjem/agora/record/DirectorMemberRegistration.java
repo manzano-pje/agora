@@ -13,8 +13,7 @@ public record DirectorMemberRegistration(
 
         DirectionEnum directionEnum,
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         @NotNull
-//        @Schema(type = "string", pattern = "dd/MM/yyyy", example = "01/01/1900")
         LocalDate startDate
+
 ){}

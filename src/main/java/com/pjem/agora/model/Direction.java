@@ -25,7 +25,7 @@ public class Direction {
     private LocalDate startDate;
     private LocalDate finalDate;
 
-    @Column(name = "role", length = 20)
+    @Column(name = "role", length = 80)
     @Enumerated(EnumType.STRING)
     private DirectionEnum role;
     private boolean isActive;

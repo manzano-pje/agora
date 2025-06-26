@@ -6,8 +6,8 @@ import com.pjem.agora.model.enums.DirectionEnum;
 import java.time.LocalDate;
 
 public record DirectionReturn(
-        DirectionEnum role,
         String nameDirector,
+        DirectionEnum role,
         LocalDate startDate,
         LocalDate finalDate,
         Boolean isActive
