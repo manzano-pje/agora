@@ -1,5 +1,6 @@
 package com.pjem.agora.service;
 
+import com.pjem.agora.exception.InternalServerErrorException;
 import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
 import com.pjem.agora.exception.ResourceNoRegisteredException;
 import com.pjem.agora.model.Associates;
@@ -10,6 +11,7 @@ import com.pjem.agora.repository.AssociateRepository;
 import com.pjem.agora.repository.DirectionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -57,8 +59,6 @@ public class DirectionService {
         direction.setActive(true);
 
         System.out.println("Role para salvar: '" + direction.getRole() + "' com length: " + direction.getRole().name().length());
-        String roleValue = direction.getRole().name().trim();
-
         directorRepository.save(direction);
     }
 
@@ -85,6 +85,29 @@ public class DirectionService {
                     )
                     .collect(Collectors.toList());
         }
+    }
 
+    public List<DirectionReturn> getDirectorsByPeriod(LocalDate startDate, LocalDate endDate) {
+        if(endDate.isBefore(startDate)){
+            throw new ResourceNoRegisteredException("Data final deve ser maior que data inicial");
+        }
+        try {
+            List<Direction> directionList = directorRepository.findAllDirectionByPeriod(startDate, endDate);
+            if (directionList.isEmpty()) {
+                throw new ResourceNoRegisteredException("Não existem Diretorias no período informado");
+            }
+
+            return directionList.stream()
+                    .map(d -> new DirectionReturn(
+                            d.getAssociates().getName(),
+                            d.getRole(),
+                            d.getStartDate(),
+                            d.getFinalDate(),
+                            d.isActive()
+                    ))
+                    .collect(Collectors.toList());
+        }catch (DataAccessException e){
+            throw new InternalServerErrorException("Erro ao ler os dados. Por favor tente mais tarde.");
+        }
     }
 }
