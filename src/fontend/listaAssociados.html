@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Listagem de Associados</title>
+  
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#007bff',
+            secondary: '#6c757d',
+            sidebarBg: '#f1f1f1',
+            primaryHover: '#0056b3',
+            sidebarLinkHover: '#cfe2ff',
+          },
+          fontFamily: {
+            sans: ['Arial', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="h-full bg-white text-gray-900 font-sans">
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="bg-sidebarBg w-64 p-6 flex flex-col">
+      <div class="logo mb-8 text-center">
+        <img src="./imagens/logo agora completo.png" alt="Logo da Empresa" class="mx-auto w-40" />
+      </div>
+
+      <nav class="flex flex-col space-y-2 text-gray-800">
+        <class="accordion-btn flex justify-between items-center w-full px-4 py-2 font-semibold rounded hover:bg-sidebarLinkHover transition">
+          Menu
+        </class=>
+        <ul class="submenu max-h-0 overflow-hidden transition-[max-height] duration-300 pl-6 space-y-1">
+          <li><a href="#" class="block px-3 py-1 rounded hover:bg-primary hover:text-white transition">Item 1.1</a></li>
+          <li><a href="#" class="block px-3 py-1 rounded hover:bg-primary hover:text-white transition">Item 1.2</a></li>
+        </ul>
+
+        <button class="accordion-btn flex justify-between items-center w-full px-4 py-2 font-semibold rounded hover:bg-sidebarLinkHover transition" type="button">
+          Associados
+          <svg class="w-5 h-5 text-primary transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <ul class="submenu max-h-0 overflow-hidden transition-[max-height] duration-300 pl-6 space-y-1">
+          <li><a href="index.html" class="block px-3 py-1 rounded hover:bg-primary hover:text-white transition">Cadastrar</a></li>
+          <li><a href="listaAssociados.html" class="block px-3 py-1 rounded hover:bg-primary hover:text-white transition">Listar</a></li>
+        </ul>
+
+        <a href="#" class="block px-4 py-2 font-semibold rounded hover:bg-sidebarLinkHover transition">Projetos</a>
+        <a href="#" class="block px-4 py-2 font-semibold rounded hover:bg-sidebarLinkHover transition">Diretores</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-8">
+      <header class="mb-8">
+        <h1 class="text-4xl font-bold mb-2">Listagem de Associados</h1>
+        <p class="text-gray-700">Clique em um associado para visualizar os dados.</p>
+      </header>
+
+      <div class="overflow-x-auto border border-gray-300 rounded-lg shadow-sm">
+        <table id="associadosTable" class="min-w-full border-collapse">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="text-left p-4 border-b border-gray-300">Código</th>
+              <th class="text-left p-4 border-b border-gray-300">Nome</th>
+              <th class="text-left p-4 border-b border-gray-300">CPF</th>
+              <th class="text-left p-4 border-b border-gray-300">Telefone</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <!-- Dados via JS -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/base.js"></script>
+  <script src="/js/associados.js"></script>
+</body>
+</html>

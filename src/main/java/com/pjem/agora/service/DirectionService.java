@@ -45,7 +45,7 @@ public class DirectionService {
             Optional<Direction> directionOptional = directorRepository.findByAssociates(associatesOptional.get());
             if (directionOptional.isPresent() && directionOptional.get().isActive()) {
                 String function = String.valueOf(directionOptional.get().getRole());
-                throw new ResourceAlreadyRegisteredException("Associado " + newMember.associateName() + "é " + function + " na diretoria atual.");
+                throw new ResourceAlreadyRegisteredException("Associado " + newMember.associateName() + " é " + function + " na diretoria atual.");
             }
         }
         Direction direction = new Direction();
@@ -55,11 +55,15 @@ public class DirectionService {
         direction.setStartDate(LocalDate.now());
 
         direction.setActive(true);
+
+        System.out.println("Role para salvar: '" + direction.getRole() + "' com length: " + direction.getRole().name().length());
+        String roleValue = direction.getRole().name().trim();
+
         directorRepository.save(direction);
     }
 
     public List<DirectionReturn> getAllDirection(){
-        List<Direction> directionList = directorRepository.findAll();
+        List<Direction> directionList = directorRepository.findAllWithAssociates();
         if (directionList.isEmpty()) {
             throw new ResourceNoRegisteredException("Não há membros cadastrados na diretoria");
         }else{
@@ -69,10 +73,11 @@ public class DirectionService {
                             .thenComparing(Direction::getRole))
                     .collect(Collectors.toList());
 
+
             return  directionList.stream()
                     .map(d -> new DirectionReturn(
+                            d.getAssociates().getName(),
                             d.getRole(),
-                            d.getAssociates(),
                             d.getStartDate(),
                             d.getFinalDate(),
                             d.isActive()

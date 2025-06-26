@@ -24,6 +24,6 @@ public class Users {
 
     /////////////// RELACIONAMENTOS ///////////////
 
-    @OneToOne(mappedBy = "users")
-    private Associates associates;
+//    @OneToOne(mappedBy = "users")
+//    private Associates associates;
 }

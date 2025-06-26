@@ -11,10 +11,9 @@ import java.time.LocalDate;
 public record DirectorMemberRegistration(
         String associateName,
 
-        DirectionEnum directionEnum
+        DirectionEnum directionEnum,
 
-//        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-//        @NotNull
-//        @Schema(type = "string", pattern = "dd/MM/yyyy", example = "01/01/1900")
-//        LocalDate startDate
+        @NotNull
+        LocalDate startDate
+
 ){}

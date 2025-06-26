@@ -22,17 +22,17 @@ public class Direction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDirection;
-    @ManyToOne
-    @JoinColumn(name = "associates_id")
-    private Associates associates;
-
     private LocalDate startDate;
     private LocalDate finalDate;
 
-    @Column(name = "role", length = 20)
+    @Column(name = "role", length = 80)
     @Enumerated(EnumType.STRING)
     private DirectionEnum role;
     private boolean isActive;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "associates_id")
+    private Associates associates;
 
 }
 
