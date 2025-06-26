@@ -5,6 +5,7 @@ import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
 import com.pjem.agora.exception.ResourceNoRegisteredException;
 import com.pjem.agora.model.Associates;
 import com.pjem.agora.model.Direction;
+import com.pjem.agora.record.DirectionFinalDate;
 import com.pjem.agora.record.DirectorMemberRegistration;
 import com.pjem.agora.record.DirectionReturn;
 import com.pjem.agora.repository.AssociateRepository;
@@ -109,5 +110,21 @@ public class DirectionService {
         }catch (DataAccessException e){
             throw new InternalServerErrorException("Erro ao ler os dados. Por favor tente mais tarde.");
         }
+    }
+
+    public void setEndDate(DirectionFinalDate directionFinalDate){
+        if(directionFinalDate.endDate() == null){
+            throw new ResourceNoRegisteredException("Data final não informada");
+        }
+        Optional<Direction> directionOptional = directorRepository.findById(directionFinalDate.idDirector());
+        if (directionOptional.isEmpty()){
+            throw new ResourceNoRegisteredException("Não existe diretor cadastrado");
+        }else if (!directionOptional.get().isActive()){
+            throw new ResourceNoRegisteredException("Diretor não está na diretoria.");
+        }
+        Direction direction = new Direction();
+        direction = mapper.map(directionOptional, Direction.class);
+        direction.setActive(false);
+        directorRepository.save(direction);
     }
 }
