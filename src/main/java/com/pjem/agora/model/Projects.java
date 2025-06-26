@@ -7,9 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Getter
@@ -28,6 +26,7 @@ public class Projects {
     private LocalDate startDate;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
+    private boolean isActive;
 
     /////////////// RELACIONAMENTOS ///////////////
 

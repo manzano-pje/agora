@@ -1,6 +1,6 @@
 package com.pjem.agora.dto;
 
-import com.pjem.agora.model.enums.Profile;
+import com.pjem.agora.model.enums.ProfileEnum;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class UserUpdateDto {
     private Long id;
     @Enumerated
-    private Profile profile;
+    private ProfileEnum profile;
 }

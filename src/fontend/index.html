@@ -1,29 +1,70 @@
-<!doctype html>
-<html class="wide won-animation" lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utd-8">
-<!--    <link rel="icon" href="images/logos/favicon.png" type="image/x-icon">-->
-
-    <!--------- Stylecheets ----------->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400,500,600,700%7CPoppins:400%7CTeko:300,400">
-    <link rel="stylesheet" href="css/style.css">
-    <title>AGORA</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Associação</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleMenu(id) {
+      const menu = document.getElementById(id);
+      menu.classList.toggle('hidden');
+    }
+  </script>
 </head>
-<body class="bg-gray-100 h-screen flex">
-    <!----- MENU LATERAL ----->
-    <aside class="w-1/5 h-screen flex flex-col justify-between bg-gradient-to-b from-blue-200 to-blue-700">
+<body class="bg-gray-100 min-h-screen">
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow h-screen p-4">
+      <h2 class="text-xl font-bold mb-6 text-blue-700">Associação</h2>
+
+      <nav class="space-y-4">
+        <!-- MENU -->
         <div>
-            <h2 class="text-center text-xl py-4">Menu Lateral</h2>
+          <button onclick="toggleMenu('menuSub')" class="w-full text-left text-gray-700 font-semibold">Menu</button>
+          <ul id="menuSub" class="ml-4 mt-2 hidden space-y-1">
+            <li><a href="#" class="block hover:text-blue-500">Dashboard</a></li>
+            <li><a href="#" class="block hover:text-blue-500">Configurações</a></li>
+          </ul>
         </div>
-        <div class="p-4">
-            <a href="#" class="text-red-600 hover:bg-red-100 px-4 py-2 rounded block">Sair</a>
+
+        <!-- ASSOCIATES -->
+        <div>
+          <button onclick="toggleMenu('associatesSub')" class="w-full text-left text-gray-700 font-semibold">Associates</button>
+          <ul id="associatesSub" class="ml-4 mt-2 hidden space-y-1">
+            <li><a href="#" class="block hover:text-blue-500">Listar Associados</a></li>
+            <li><a href="#" class="block hover:text-blue-500">Novo Associado</a></li>
+          </ul>
         </div>
+
+        <!-- PROJECTS -->
+        <div>
+          <button onclick="toggleMenu('projectsSub')" class="w-full text-left text-gray-700 font-semibold">Projects</button>
+          <ul id="projectsSub" class="ml-4 mt-2 hidden space-y-1">
+            <li><a href="#" class="block hover:text-blue-500">Projetos Ativos</a></li>
+            <li><a href="#" class="block hover:text-blue-500">Novo Projeto</a></li>
+          </ul>
+        </div>
+
+        <!-- DIRECTORS -->
+        <div>
+          <button onclick="toggleMenu('directorsSub')" class="w-full text-left text-gray-700 font-semibold">Directors</button>
+          <ul id="directorsSub" class="ml-4 mt-2 hidden space-y-1">
+            <li><a href="#" class="block hover:text-blue-500">Lista de Diretores</a></li>
+            <li><a href="#" class="block hover:text-blue-500">Novo Diretor</a></li>
+          </ul>
+        </div>
+      </nav>
     </aside>
 
-
+    <!-- Conteúdo principal -->
+    <main class="flex-1 p-6">
+      <h1 class="text-2xl font-bold mb-4 text-gray-800">Painel de Administração</h1>
+      <div id="conteudo" class="bg-white p-4 rounded shadow">
+        <!-- Conteúdo será carregado aqui via JS conforme o menu -->
+        <p>Bem-vindo! Selecione um item no menu para começar.</p>
+      </div>
+    </main>
+  </div>
 </body>
 </html>

@@ -32,6 +32,7 @@ public class Associates {
     private String cep;
     private String city;
     private String state;
+    private Boolean isActive;
 
 
     /////////////// RELACIONAMENTOS ///////////////
@@ -42,8 +43,7 @@ public class Associates {
     @OneToMany(mappedBy = "associates", cascade = CascadeType.ALL)
     private List<AssociatedProjects> projects = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "direction_id_direction")
-    private Direction direction;
+    @OneToMany (mappedBy = "associates", cascade = CascadeType.ALL)
+    private List<Direction> directions = new ArrayList<>();
 
 }
