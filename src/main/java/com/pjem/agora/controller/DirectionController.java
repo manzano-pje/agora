@@ -1,5 +1,6 @@
 package com.pjem.agora.controller;
 
+import com.pjem.agora.record.DirectionFinalDate;
 import com.pjem.agora.record.DirectorMemberRegistration;
 import com.pjem.agora.record.DirectionReturn;
 import com.pjem.agora.service.DirectionService;
@@ -34,6 +35,11 @@ public class DirectionController {
     @PostMapping("/listPeriod")
     public List<DirectionReturn> getDirectorsByPeriod(LocalDate startDate, LocalDate endDate){
         return directionService.getDirectorsByPeriod(startDate, endDate);
+    }
+
+    @PatchMapping("/endDate")
+    public void setEndDate(@RequestBody DirectionFinalDate directionFinalDate){
+        directionService.setEndDate(directionFinalDate);
     }
 
 }
