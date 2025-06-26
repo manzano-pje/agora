@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,11 @@ public class DirectionController {
     @GetMapping
     public List<DirectionReturn> getAllDirection(){
         return directionService.getAllDirection();
+    }
+
+    @PostMapping("/listPeriod")
+    public List<DirectionReturn> getDirectorsByPeriod(LocalDate startDate, LocalDate endDate){
+        return directionService.getDirectorsByPeriod(startDate, endDate);
     }
 
 }
