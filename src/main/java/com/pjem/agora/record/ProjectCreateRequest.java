@@ -3,12 +3,10 @@ package com.pjem.agora.record;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.NonNull;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public record ProjectRegistration(
+public record ProjectCreateRequest(
         @NonNull String name,
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")

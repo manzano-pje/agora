@@ -3,13 +3,13 @@ package com.pjem.agora.service;
 import com.pjem.agora.exception.InternalServerErrorException;
 import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
 import com.pjem.agora.exception.ResourceNoRegisteredException;
-import com.pjem.agora.model.Associates;
-import com.pjem.agora.model.Direction;
-import com.pjem.agora.record.DirectionFinalDate;
-import com.pjem.agora.record.DirectorMemberRegistration;
-import com.pjem.agora.record.DirectionReturn;
-import com.pjem.agora.repository.AssociateRepository;
-import com.pjem.agora.repository.DirectionRepository;
+import com.pjem.agora.model.Board;
+import com.pjem.agora.model.Members;
+import com.pjem.agora.record.BoardEndDate;
+import com.pjem.agora.record.BoardMemberCreateRequest;
+import com.pjem.agora.record.BoardResponse;
+import com.pjem.agora.repository.MemberRepository;
+import com.pjem.agora.repository.BoardRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataAccessException;
@@ -28,11 +28,11 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
-public class DirectionService {
+public class BoardService {
 
-        private final DirectionRepository directorRepository;
+        private final BoardRepository directorRepository;
         private final ModelMapper mapper;
-        private final AssociateRepository associateRepository;
+        private final MemberRepository memberRepository;
 
 
     /**
@@ -40,43 +40,43 @@ public class DirectionService {
      *
      * @param newMember newMember
      */
-    public void registerDirectionAssiciate(DirectorMemberRegistration newMember) {
-        Optional<Associates> associatesOptional = associateRepository.findByNameContainingIgnoreCase(newMember.associateName());
+    public void registerDirectionAssiciate(BoardMemberCreateRequest newMember) {
+        Optional<Members> associatesOptional = memberRepository.findByNameContainingIgnoreCase(newMember.associateName());
         if (associatesOptional.isEmpty()) {
             throw new ResourceNoRegisteredException("Associado não cadastrado.");
         } else {
-            Optional<Direction> directionOptional = directorRepository.findByAssociates(associatesOptional.get());
+            Optional<Board> directionOptional = directorRepository.findByAssociates(associatesOptional.get());
             if (directionOptional.isPresent() && directionOptional.get().isActive()) {
                 String function = String.valueOf(directionOptional.get().getRole());
                 throw new ResourceAlreadyRegisteredException("Associado " + newMember.associateName() + " é " + function + " na diretoria atual.");
             }
         }
-        Direction direction = new Direction();
-        direction.setRole(newMember.directionEnum());
-        direction.setAssociates(associatesOptional.get());
-        direction.setActive(true);
-        direction.setStartDate(LocalDate.now());
+        Board board = new Board();
+        board.setRole(newMember.boardRole());
+        board.setAssociates(associatesOptional.get());
+        board.setActive(true);
+        board.setStartDate(LocalDate.now());
 
-        direction.setActive(true);
+        board.setActive(true);
 
-        System.out.println("Role para salvar: '" + direction.getRole() + "' com length: " + direction.getRole().name().length());
-        directorRepository.save(direction);
+        System.out.println("Role para salvar: '" + board.getRole() + "' com length: " + board.getRole().name().length());
+        directorRepository.save(board);
     }
 
-    public List<DirectionReturn> getAllDirection(){
-        List<Direction> directionList = directorRepository.findAllWithAssociates();
-        if (directionList.isEmpty()) {
+    public List<BoardResponse> getAllDirection(){
+        List<Board> boardList = directorRepository.findAllWithAssociates();
+        if (boardList.isEmpty()) {
             throw new ResourceNoRegisteredException("Não há membros cadastrados na diretoria");
         }else{
 
-            directionList = directionList.stream()
-                    .sorted(Comparator.comparing(Direction::getStartDate)
-                            .thenComparing(Direction::getRole))
+            boardList = boardList.stream()
+                    .sorted(Comparator.comparing(Board::getStartDate)
+                            .thenComparing(Board::getRole))
                     .collect(Collectors.toList());
 
 
-            return  directionList.stream()
-                    .map(d -> new DirectionReturn(
+            return  boardList.stream()
+                    .map(d -> new BoardResponse(
                             d.getAssociates().getName(),
                             d.getRole(),
                             d.getStartDate(),
@@ -88,18 +88,18 @@ public class DirectionService {
         }
     }
 
-    public List<DirectionReturn> getDirectorsByPeriod(LocalDate startDate, LocalDate endDate) {
+    public List<BoardResponse> getDirectorsByPeriod(LocalDate startDate, LocalDate endDate) {
         if(endDate.isBefore(startDate)){
             throw new ResourceNoRegisteredException("Data final deve ser maior que data inicial");
         }
         try {
-            List<Direction> directionList = directorRepository.findAllDirectionByPeriod(startDate, endDate);
-            if (directionList.isEmpty()) {
+            List<Board> boardList = directorRepository.findAllDirectionByPeriod(startDate, endDate);
+            if (boardList.isEmpty()) {
                 throw new ResourceNoRegisteredException("Não existem Diretorias no período informado");
             }
 
-            return directionList.stream()
-                    .map(d -> new DirectionReturn(
+            return boardList.stream()
+                    .map(d -> new BoardResponse(
                             d.getAssociates().getName(),
                             d.getRole(),
                             d.getStartDate(),
@@ -112,19 +112,19 @@ public class DirectionService {
         }
     }
 
-    public void setEndDate(DirectionFinalDate directionFinalDate){
-        if(directionFinalDate.endDate() == null){
+    public void setEndDate(BoardEndDate boardEndDate){
+        if(boardEndDate.endDate() == null){
             throw new ResourceNoRegisteredException("Data final não informada");
         }
-        Optional<Direction> directionOptional = directorRepository.findById(directionFinalDate.idDirector());
+        Optional<Board> directionOptional = directorRepository.findById(boardEndDate.idDirector());
         if (directionOptional.isEmpty()){
             throw new ResourceNoRegisteredException("Não existe diretor cadastrado");
         }else if (!directionOptional.get().isActive()){
             throw new ResourceNoRegisteredException("Diretor não está na diretoria.");
         }
-        Direction direction = new Direction();
-        direction = mapper.map(directionOptional, Direction.class);
-        direction.setActive(false);
-        directorRepository.save(direction);
+        Board board = new Board();
+        board = mapper.map(directionOptional, Board.class);
+        board.setActive(false);
+        directorRepository.save(board);
     }
 }

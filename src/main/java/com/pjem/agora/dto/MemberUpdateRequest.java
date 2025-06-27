@@ -1,6 +1,6 @@
 package com.pjem.agora.dto;
 
-import com.pjem.agora.model.Associates;
+import com.pjem.agora.model.Members;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AssociateUpdateDto {
+public class MemberUpdateRequest {
     @NonNull
     private Long id;
     @NonNull
@@ -44,7 +44,7 @@ public class AssociateUpdateDto {
     @NonNull
     private String state;
 
-    public AssociateUpdateDto(Associates associates) {
+    public MemberUpdateRequest(Members members) {
     }
 }
 

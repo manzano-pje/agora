@@ -31,5 +31,5 @@ public class Projects {
     /////////////// RELACIONAMENTOS ///////////////
 
     @OneToMany(mappedBy = "projects", cascade = CascadeType.ALL)
-    private List<AssociatedProjects> associates = new ArrayList<>();
+    private List<membersProjects> associates = new ArrayList<>();
 }

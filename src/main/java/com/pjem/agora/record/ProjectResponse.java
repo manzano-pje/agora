@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public record ProjectRead(
+public record ProjectResponse(
         @NonNull String name,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         @NonNull @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -19,8 +19,8 @@ public record ProjectRead(
         @Schema(type = "string", pattern = "dd/MM/yyyy", example = "01/01/1900")
         LocalDate endDate
         ) {
-    public static ProjectRead from (Projects projects){
-        return new ProjectRead(projects.getName(),
+    public static ProjectResponse from (Projects projects){
+        return new ProjectResponse(projects.getName(),
                    projects.getStartDate(),
                    projects.getEndDate());
     }

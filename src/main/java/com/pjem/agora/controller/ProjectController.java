@@ -1,11 +1,10 @@
 package com.pjem.agora.controller;
 
-import com.pjem.agora.dto.ProjectUpdateDto;
-import com.pjem.agora.record.ProjectRead;
-import com.pjem.agora.record.ProjectRegistration;
-import com.pjem.agora.record.ProjetctPeriod;
+import com.pjem.agora.dto.ProjectUpdateRequest;
+import com.pjem.agora.record.ProjectResponse;
+import com.pjem.agora.record.ProjectCreateRequest;
+import com.pjem.agora.record.ProjetctDuration;
 import com.pjem.agora.service.ProjectService;
-import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,24 +23,24 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping
-    public ResponseEntity<Object> projectRegistration(@Valid @RequestBody ProjectRegistration newProject) {
+    public ResponseEntity<Object> projectRegistration(@Valid @RequestBody ProjectCreateRequest newProject) {
         projectService.projectRegiostration(newProject);
         return ResponseEntity.status(HttpStatus.CREATED).body("Projeto cadastrado");
     }
 
     @GetMapping
-    public List<ProjectRead> getAllProjects(){
+    public List<ProjectResponse> getAllProjects(){
         return projectService.getAllProjects();
     }
 
     @PostMapping("/period")
-    public List<ProjectRead> getProjectsByPeriod( @RequestBody ProjetctPeriod projetctPeriod){
-        return projectService.getProjectsByPeriod(projetctPeriod);
+    public List<ProjectResponse> getProjectsByPeriod(@RequestBody ProjetctDuration projetctDuration){
+        return projectService.getProjectsByPeriod(projetctDuration);
     }
 
     @PatchMapping("/{name}")
     public ResponseEntity<Object> updateProject(@PathVariable String name,
-                              @Valid @RequestBody ProjectUpdateDto newProject){
+                              @Valid @RequestBody ProjectUpdateRequest newProject){
         projectService.updateProject(name, newProject);
         return ResponseEntity.status(HttpStatus.OK).body("Projeto atualizado.");
     }

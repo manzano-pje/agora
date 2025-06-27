@@ -1,13 +1,12 @@
 package com.pjem.agora.model;
 
-import com.pjem.agora.model.enums.DirectionEnum;
+import com.pjem.agora.model.enums.BoardRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,22 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="tb_Direction")
-public class Direction {
+public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDirection;
-    private LocalDate startDate;
-    private LocalDate finalDate;
 
-    @Column(name = "role", length = 80)
+    @Column(name = "role", length = 30)
     @Enumerated(EnumType.STRING)
-    private DirectionEnum role;
-    private boolean isActive;
+    private BoardRole role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "associates",cascade = CascadeType.ALL)
     @JoinColumn(name = "associates_id")
-    private Associates associates;
-
+    private List<Members> associates = new ArrayList<>();
 }
 

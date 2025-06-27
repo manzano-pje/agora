@@ -1,7 +1,6 @@
 package com.pjem.agora.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_Associates")
-public class Associates {
+public class Members {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +40,10 @@ public class Associates {
 //    @OneToOne
 //    private Users users;
 
-    @OneToMany(mappedBy = "associates", cascade = CascadeType.ALL)
-    private List<AssociatedProjects> projects = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "associates_id", nullable = false)
+    private Members members;
 
-    @OneToMany (mappedBy = "associates", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Direction> directions;
-
+    @OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+    private List<membersProjects> projects = new ArrayList<>();
 }

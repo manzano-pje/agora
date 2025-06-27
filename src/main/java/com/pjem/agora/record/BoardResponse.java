@@ -1,13 +1,12 @@
 package com.pjem.agora.record;
 
-import com.pjem.agora.model.Associates;
-import com.pjem.agora.model.enums.DirectionEnum;
+import com.pjem.agora.model.enums.BoardRole;
 
 import java.time.LocalDate;
 
-public record DirectionReturn(
+public record BoardResponse(
         String nameDirector,
-        DirectionEnum role,
+        BoardRole role,
         LocalDate startDate,
         LocalDate finalDate,
         Boolean isActive

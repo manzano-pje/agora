@@ -1,6 +1,6 @@
 package com.pjem.agora.model.enums;
 
-public enum DirectionEnum {
+public enum BoardRole {
     PRESIDENTE("Presidente",1),
     VICEPRESIDENTE("Vice Presidente",2),
     SECRETARIO1("1º Secretário",3),
@@ -14,7 +14,7 @@ public enum DirectionEnum {
     private final String name;
     private final int order;
 
-    DirectionEnum(String name, int order){
+    BoardRole(String name, int order){
         this.name = name;
         this.order = order;
     }

@@ -1,10 +1,10 @@
 package com.pjem.agora.controller;
 
 import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
-import com.pjem.agora.model.Associates;
-import com.pjem.agora.record.AssociatesRead;
-import com.pjem.agora.record.AssociatesRegistration;
-import com.pjem.agora.service.AssociateService;
+import com.pjem.agora.model.Members;
+import com.pjem.agora.record.MemberResponse;
+import com.pjem.agora.record.MemberCreateRequest;
+import com.pjem.agora.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("/api/v1/associate")
 @CrossOrigin(origins = "*") //
-public class AssociateController {
+public class MemberController {
 
-    private final AssociateService associateService;
+    private final MemberService memberService;
 
     /***
      *
@@ -33,9 +33,9 @@ public class AssociateController {
      */
 
     @PostMapping
-    public ResponseEntity<Object> registerAssociate(@RequestBody AssociatesRegistration newAssociate) {
+    public ResponseEntity<Object> registerAssociate(@RequestBody MemberCreateRequest newAssociate) {
         try {
-            Associates saved = associateService.registrerAssociate(newAssociate);
+            Members saved = memberService.registrerAssociate(newAssociate);
             return ResponseEntity.status(HttpStatus.CREATED).body("registro gravado com sucesso");
         } catch (ResourceAlreadyRegisteredException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
@@ -43,24 +43,24 @@ public class AssociateController {
     }
 
     @GetMapping
-    public List<AssociatesRead> getAllAssocaites(){
-        return associateService.getAllAssocaites();
+    public List<MemberResponse> getAllAssocaites(){
+        return memberService.getAllAssocaites();
     }
 
     @GetMapping("/associado/{name}")
-    public AssociatesRead getAssociate(@PathVariable String name){
-        return associateService.getAssociate(name);
+    public MemberResponse getAssociate(@PathVariable String name){
+        return memberService.getAssociate(name);
     }
 
     @PatchMapping("/{name}")
-    public void updateAssociate(@RequestBody AssociatesRegistration associateUpdateDto,
+    public void updateAssociate(@RequestBody MemberCreateRequest associateUpdateDto,
                                                   @PathVariable String name){
-        associateService.updateAssociate(associateUpdateDto, name);
+        memberService.updateAssociate(associateUpdateDto, name);
     }
 
     @DeleteMapping("/{name}")
     public void deleteAssociate(@PathVariable String name){
-        associateService.deleteAssociate(name);
+        memberService.deleteAssociate(name);
     }
 
 }
