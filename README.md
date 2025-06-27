@@ -153,13 +153,3 @@ O objetivo do **Agora** é proporcionar uma plataforma digital organizada e aces
 | `data`     | LocalDate   | Data do lançamento                         |
 | `categoria`| String      | Categoria (ex: contribuição, evento, etc.) |
 
----
-
-### 🔗 Relacionamentos
-
-- Um **Associado** pode participar de **vários Projetos**
-- Um **Projeto** pode ter **vários Associados**
-- Um **Associado** pode ocupar cargos em várias gestões da **Diretoria**
-- A **Diretoria** sempre referencia um **Associado**
-- O **Financeiro** é independente, mas pode futuramente se ligar a projetos ou associados
-
