@@ -16,6 +16,4 @@ public record BoardResponse(
                 board.isActive()
         );
     }
-
-
 }
