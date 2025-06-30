@@ -1,12 +1,12 @@
 package com.pjem.agora.model;
 
-import com.pjem.agora.model.enums.BoardRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +15,19 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="tb_Direction")
+@Table(name="tb_Board")
 public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDirection;
+    private Long idBoard;
+    private LocalDate mandateStart;
+    private LocalDate mandateEnd;
+    private boolean isActive;
 
-    @Column(name = "role", length = 30)
-    @Enumerated(EnumType.STRING)
-    private BoardRole role;
+    @OneToMany(mappedBy = "boardMembers", cascade = CascadeType.ALL)
+    private List<BoardMembers> boardMembers  = new ArrayList<>();
 
-    @OneToMany(mappedBy = "associates",cascade = CascadeType.ALL)
-    @JoinColumn(name = "associates_id")
-    private List<Members> associates = new ArrayList<>();
+
 }
 

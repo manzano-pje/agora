@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.util.Date;
 
 public record MemberCreateRequest(
-        @NotNull String name,
+        @NotNull String mamber,
         @NotNull @Min(value = 8, message = "O RG precisa ter no mínimo 8 dígitos") String rg,
         @NotNull @CPF @NonNull String cpf,
 

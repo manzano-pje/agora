@@ -22,20 +22,20 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_AssiciatedProjects")
+@Table(name = "tb_MembersProjects")
 public class membersProjects {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate entryDate;
-//    private MemberCategory memberCategory;
+    private MemberCategory memberCategory;
 
 
     /////////////// RELACIONAMENTOS ///////////////
 
     @ManyToOne
-    @JoinColumn(name = "associated_id")
+    @JoinColumn(name = "member_id")
     private Members members;
 
     @ManyToOne

@@ -7,8 +7,7 @@ import java.time.LocalDate;
 
 
 public record BoardMemberCreateRequest(
-        String associateName,
-
+        String member,
         BoardRole boardRole,
 
         @NotNull

@@ -1,12 +1,14 @@
-package com.projeto.restaurante.configuration;
+package com.pjem.agora.util;
 
+import com.pjem.agora.exception.ResourceNoRegisteredException;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class TextConverter {
+public class Util {
 
     // Lista de palavras que devem ficar em minúsculas, como "de", "da", etc.
     private static final Set<String> PALAVRAS_LIGACAO = new HashSet<>();
@@ -51,6 +53,12 @@ public class TextConverter {
         }
 
         return resultado;
+    }
+
+    public void validacaoDeDatas(LocalDate firstDate, LocalDate secondDate){
+        if(firstDate.isAfter(secondDate)){
+            throw new ResourceNoRegisteredException("Data final deve ser maior que a data inicial.");
+        }
     }
 
 }

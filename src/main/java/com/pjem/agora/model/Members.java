@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_Associates")
+@Table(name = "tb_Members")
 public class Members {
 
     @Id
@@ -40,10 +40,7 @@ public class Members {
 //    @OneToOne
 //    private Users users;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "associates_id", nullable = false)
-    private Members members;
-
     @OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-    private List<membersProjects> projects = new ArrayList<>();
+    private List<BoardMembers> members = new ArrayList<>();
+
 }
