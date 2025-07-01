@@ -1,6 +1,7 @@
 package com.pjem.agora.controller;
 
-import com.pjem.agora.record.BoardFilterRequest;
+import com.pjem.agora.record.BoardCreateRequest;
+import com.pjem.agora.record.BoardUpdateRequest;
 import com.pjem.agora.record.BoardResponse;
 import com.pjem.agora.service.BoardService;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public ResponseEntity<Object> CreateBoard(@RequestBody BoardFilterRequest newBoard){
+    public ResponseEntity<Object> CreateBoard(@RequestBody BoardCreateRequest newBoard){
         boardService.CreateBoard(newBoard);
         return ResponseEntity.status(HttpStatus.CREATED).body("Gestão cadastrado");
     }
@@ -38,9 +39,10 @@ public class BoardController {
         return boardService.getDirectorsByPeriod(managementStart, managementEnd);
     }
 
-//    @PatchMapping("/endDate")
-//    public void setEndDate(@RequestBody BoardEndDate boardEndDate){
-//        boardService.setEndDate(boardEndDate);
-//    }
+    @PatchMapping("{idBoard}")
+    public void updateManagement(@PathVariable Long idBoard, @RequestBody BoardUpdateRequest newBoard){
+        boardService.updateManagement(idBoard,newBoard );
+
+    }
 
 }

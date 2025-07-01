@@ -3,16 +3,17 @@ package com.pjem.agora.service;
 import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
 import com.pjem.agora.exception.ResourceNoRegisteredException;
 import com.pjem.agora.model.Board;
-import com.pjem.agora.record.BoardFilterRequest;
+import com.pjem.agora.record.BoardCreateRequest;
+import com.pjem.agora.record.BoardUpdateRequest;
 import com.pjem.agora.record.BoardResponse;
 import com.pjem.agora.repository.BoardRepository;
 import com.pjem.agora.util.Util;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -27,15 +28,15 @@ public class BoardService {
     private final Util util;
 
 
-    public void CreateBoard(BoardFilterRequest newBoard) {
-        util.validacaoDeDatas(newBoard.managementStart(), newBoard.managementEnd());
-        List<Board> boardOptional = boardRepository.findByManagementPeriod(newBoard.managementStart(), newBoard.managementEnd());
-        if (boardOptional.isEmpty()) {
+    public void CreateBoard(BoardCreateRequest newBoard) {
+        util.validacaoDeDatas(newBoard.mandateStart(), newBoard.mandateEnd());
+        List<Board> boardList = boardRepository.findByManagementPeriod(newBoard.mandateStart(), newBoard.mandateEnd());
+        if (!boardList.isEmpty()) {
             throw new ResourceAlreadyRegisteredException("Já existe uma gestão entre as datas inseridas.");
         } else {
             Board board = new Board();
-            board.setMandateStart(newBoard.managementStart());
-            board.setMandateEnd(newBoard.managementEnd());
+            board.setMandateStart(newBoard.mandateStart());
+            board.setMandateEnd(newBoard.mandateEnd());
             board.setActive(false);
             boardRepository.save(board);
         }
@@ -64,5 +65,23 @@ public class BoardService {
         }
     }
 
-
+    public void updateManagement(Long idBoard, BoardUpdateRequest newBoard){
+        util.validacaoDeDatas(newBoard.managementStart(),newBoard.managementEnd());
+        List<Board> boardManagementList = boardRepository.findByManagementPeriod(newBoard.managementStart(), newBoard.managementEnd());
+        if (!boardManagementList.isEmpty()) {
+            throw new ResourceAlreadyRegisteredException("Já existe uma gestão entre as datas inseridas.");
+        }else {
+            Optional<Board> boardIdOptional = boardRepository.findById(idBoard);
+            if (boardIdOptional.isEmpty()) {
+                throw new ResourceNoRegisteredException("Não existe nenhuma gestão cadastrada");
+            } else {
+                Board board = new Board();
+                board.setIdBoard(idBoard);
+                board.setMandateStart(newBoard.managementStart());
+                board.setMandateEnd(newBoard.managementEnd());
+                board.setActive(newBoard.isActive());
+                boardRepository.save(board);
+            }
+        }
+    }
 }

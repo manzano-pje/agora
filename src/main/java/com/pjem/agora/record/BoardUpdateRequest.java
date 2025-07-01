@@ -2,8 +2,9 @@ package com.pjem.agora.record;
 
 import java.time.LocalDate;
 
-public record BoardFilterRequest(
+public record BoardUpdateRequest(
         LocalDate managementStart,
-        LocalDate managementEnd
+        LocalDate managementEnd,
+        boolean isActive
 ) {
 }
