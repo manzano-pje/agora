@@ -9,6 +9,7 @@ import com.pjem.agora.record.BoardResponse;
 import com.pjem.agora.repository.BoardRepository;
 import com.pjem.agora.util.Util;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -81,6 +82,19 @@ public class BoardService {
                 board.setMandateEnd(newBoard.managementEnd());
                 board.setActive(newBoard.isActive());
                 boardRepository.save(board);
+            }
+        }
+    }
+
+    public void deleteBoard(Long idBoard){
+        Optional<Board> boardIdOptional = boardRepository.findById(idBoard);
+        if (boardIdOptional.isEmpty()) {
+            throw new ResourceNoRegisteredException("Não existe nenhuma gestão cadastrada");
+        } else {
+            try{
+                boardRepository.deleteById(idBoard);
+            }catch (DataIntegrityViolationException e){
+                throw new DataIntegrityViolationException("ão é possível excluir esta gestão pois há membros vinculados.");
             }
         }
     }

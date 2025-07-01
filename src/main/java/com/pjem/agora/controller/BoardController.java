@@ -45,4 +45,9 @@ public class BoardController {
 
     }
 
+    @DeleteMapping("{idBoard}")
+    public void deleteBoard(@PathVariable Long idBoard){
+        boardService.deleteBoard(idBoard);
+    }
+
 }
