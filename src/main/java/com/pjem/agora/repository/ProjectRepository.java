@@ -1,10 +1,8 @@
 package com.pjem.agora.repository;
 
 import com.pjem.agora.model.Projects;
-import com.pjem.agora.record.ProjectRead;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 

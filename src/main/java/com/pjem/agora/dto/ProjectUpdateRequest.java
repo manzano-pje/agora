@@ -6,9 +6,8 @@ import lombok.NonNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public class ProjectUpdateDto {
+public class ProjectUpdateRequest {
 
     @NonNull
     private String name;

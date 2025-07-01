@@ -1,12 +1,12 @@
 package com.pjem.agora.service;
 
-import com.pjem.agora.dto.ProjectUpdateDto;
+import com.pjem.agora.dto.ProjectUpdateRequest;
 import com.pjem.agora.exception.ResourceAlreadyRegisteredException;
 import com.pjem.agora.exception.ResourceNoRegisteredException;
 import com.pjem.agora.model.Projects;
-import com.pjem.agora.record.ProjectRead;
-import com.pjem.agora.record.ProjectRegistration;
-import com.pjem.agora.record.ProjetctPeriod;
+import com.pjem.agora.record.ProjectResponse;
+import com.pjem.agora.record.ProjectCreateRequest;
+import com.pjem.agora.record.ProjetctDuration;
 import com.pjem.agora.repository.ProjectRepository;
 import lombok.AllArgsConstructor;
 
@@ -28,7 +28,7 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final ModelMapper mapper;
 
-    public Projects projectRegiostration(ProjectRegistration newProject){
+    public Projects projectRegiostration(ProjectCreateRequest newProject){
         Optional<Projects> projectsOptional = projectRepository.findByName(newProject.name());
         if(projectsOptional.isPresent()){
             throw new ResourceAlreadyRegisteredException("Projeto já cadastrado.");
@@ -39,32 +39,32 @@ public class ProjectService {
         return projectRepository.save(projects);
     }
 
-    public List<ProjectRead> getAllProjects(){
+    public List<ProjectResponse> getAllProjects(){
         List<Projects> projectsList = projectRepository.findAll();
         if (projectsList.isEmpty()) {
             throw new ResourceNoRegisteredException("Não existem projetos cadastrados.");
         }
         else{
             return projectsList.stream()
-                    .map(ProjectRead :: from)
-                    .sorted(Comparator.comparing(ProjectRead::name))
+                    .map(ProjectResponse:: from)
+                    .sorted(Comparator.comparing(ProjectResponse::name))
                     .collect(Collectors.toList());
         }
     }
 
-    public List<ProjectRead> getProjectsByPeriod(ProjetctPeriod projetctPeriod){
-        List<Projects> projectsList = projectRepository.findByPeriod(projetctPeriod.startDate(),
-                                                                     projetctPeriod.endDate());
+    public List<ProjectResponse> getProjectsByPeriod(ProjetctDuration projetctDuration){
+        List<Projects> projectsList = projectRepository.findByPeriod(projetctDuration.startDate(),
+                                                                     projetctDuration.endDate());
         if(projectsList.isEmpty()){
             throw new ResourceNoRegisteredException("Não existem projetos cadastrados neste período");
         }else{
             return projectsList.stream()
-                    .map(ProjectRead::from)
+                    .map(ProjectResponse::from)
                     .collect(Collectors.toList());
         }
     }
 
-    public void updateProject(String name, ProjectUpdateDto newProject){
+    public void updateProject(String name, ProjectUpdateRequest newProject){
         Optional<Projects> projectsOptional = projectRepository.findByName(name);
         if(projectsOptional.isEmpty()){
             throw new ResourceNoRegisteredException("Projeto não cadastrado.");

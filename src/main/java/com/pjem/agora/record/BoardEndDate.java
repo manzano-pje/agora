@@ -2,8 +2,8 @@ package com.pjem.agora.record;
 
 import java.time.LocalDate;
 
-public record DirectionFinalDate(
-        Long idDirector,
+public record BoardEndDate(
+        Long idMember,
         LocalDate endDate
 ) {
 }

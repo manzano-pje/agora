@@ -1,6 +1,6 @@
 package com.pjem.agora.dto;
 
-import com.pjem.agora.model.enums.ProjectEnum;
+import com.pjem.agora.model.enums.MembersCategory;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AssociatedProjectsUpdateDto {
+public class MemberProjectsUpdateRequest {
     @NonNull
     private Long id;
     @NonNull
@@ -24,5 +24,5 @@ public class AssociatedProjectsUpdateDto {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate entryDate;
     @Enumerated
-    private ProjectEnum projectEnum;
+    private MembersCategory membersCategory;
 }

@@ -1,6 +1,6 @@
 package com.pjem.agora.model.enums;
 
-public enum ProjectEnum {
+public enum MembersCategory {
     ADMINISTRADOR,
     VOLUNTARIO,
     BENEFICIARIO
